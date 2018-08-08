@@ -7,6 +7,7 @@ CREATE TABLE dogs (
     dog_name VARCHAR(100) NOT NULL,
     dog_breed VARCHAR(100) NOT NULL
 );
+
 INSERT INTO dogs (dog_name, dog_breed) VALUES ('Macrel', 'Beagle');
 
 CREATE TABLE parks (
@@ -15,6 +16,7 @@ CREATE TABLE parks (
     lat FLOAT NOT NULL,
     lon FLOAT NOT NULL
 );
+
 INSERT INTO parks (park_name, lat, lon) VALUES 
 ('Brockwell Park', 51.450706, -0.1086375),
 ('Finsbury Park', 51.5632951, -0.1161898),
@@ -25,8 +27,10 @@ INSERT INTO parks (park_name, lat, lon) VALUES
 
 CREATE TABLE spots (
     id SERIAL PRIMARY KEY,
-    dog_id REFERENCES dogs(id),
-    park_id REFERENCES parks(id)
+    dog_id INTEGER,
+    park_id INTEGER,
+    FOREIGN KEY (dog_id) REFERENCES dogs(id),
+    FOREIGN KEY (park_id) REFERENCES parks(id)
 );
 
 COMMIT;
