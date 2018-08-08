@@ -1,0 +1,36 @@
+{
+  "name": "kamosima",
+  "version": "1.0.0",
+  "description": "An awesome dogspotting project",
+  "main": "src/server.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "node tests/test.js",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fac-14/KaMoSiMa.git"
+  },
+  "author": "Monika, Martin, Simon, Kate",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fac-14/KaMoSiMa/issues"
+  },
+  "homepage": "https://github.com/fac-14/KaMoSiMa#readme",
+  "dependencies": {
+    "env2": "^2.2.2",
+    "mime-types": "^2.1.19",
+    "pg": "^7.4.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3",
+    "nyc": "^12.0.2",
+    "supertest": "^3.1.0",
+    "tap-spec": "^5.0.0",
+    "tape": "^4.9.1"
+  }
+}
