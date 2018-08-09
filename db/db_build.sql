@@ -8,7 +8,7 @@ CREATE TABLE dogs (
     dog_breed VARCHAR(100) NOT NULL
 );
 
-INSERT INTO dogs (dog_name, dog_breed) VALUES ('Macrel', 'Beagle');
+INSERT INTO dogs (dog_name, dog_breed) VALUES ('Mackerel', 'Beagle'), ('Fenton', 'Labrador'), ('Spot', 'Beagle');
 
 CREATE TABLE parks (
     id SERIAL PRIMARY KEY,
@@ -27,10 +27,10 @@ INSERT INTO parks (park_name, lat, lon) VALUES
 
 CREATE TABLE spots (
     id SERIAL PRIMARY KEY,
-    dog_id INTEGER,
-    park_id INTEGER,
-    FOREIGN KEY (dog_id) REFERENCES dogs(id),
-    FOREIGN KEY (park_id) REFERENCES parks(id)
+    dog_id INTEGER REFERENCES dogs(id),
+    park_id INTEGER REFERENCES parks(id)
 );
+
+INSERT INTO spots (dog_id, park_id) VALUES (2, 5), (1, 6), (1, 2), (3, 4);
 
 COMMIT;
