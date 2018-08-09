@@ -48,6 +48,27 @@ const router = (request, response) => {
             response.end(JSON.stringify(res.rows));
         });
 
+    } else if (endpoint === 'create-spots') {
+        let postData = '';
+        console.log("You're trying to post a dog");
+        request.on('data', (chunk) => {
+            postData += chunk;
+        });
+        request.on('end', () => {
+            const dogName = querystring.parse(postData).dogName;
+            const dogBreed = querystring.parse(postData).dogBreed;
+            const parkName = querystring.parse(postData).parkName;
+            const parkNameFiltered = parkName.split('.')[1];
+            console.log(`Posting dog: Name = ${dogName}, ${dogBreed}, ${parkNameFiltered}`);
+            dbQuery.postDoggo(dogName, dogBreed, parkNameFiltered, (err, res) => {
+                if (err) {
+                    response.writeHead(500, 'content-type : text/html');
+                    response.end();
+                }
+                response.writeHead(302, { "Location" : "/public/seedogs.html" });
+                response.end();
+            }) 
+        }); 
     }
 
     else {
