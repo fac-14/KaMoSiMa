@@ -4,17 +4,20 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>DOGSPOTTING</title>
+    <title>DOGSPOTTING 🐕</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,900" rel="stylesheet">
     <link rel="stylesheet" type="text/css" media="screen" href="../public/main.css" />
 </head>
 
 <body>
-    <h1>Dogspotting...</h1>
-    <form action='/create-spots' method='post'>
-        <input type='text' name='dog name'></input>
-        <input type='text' name='dog breed'></input>
+    <main>
+        <section class="flex-col">
+    <h1>Dogspotting 🐕</h1>
+    <form action='/create-spots' method='post' class='flex-col'>
+        <div class="flex-col">
+        <input type='text' name='dog name' placeholder="Doggo name"></input>
+        <input type='text' name='dog breed' placeholder="Doggo breed"></input>
         <select name="parkname">
             <option value="Brockwell Park">Brockwell Park</option>
             <option value="Finsbury Park">Finsbury Park</option>
@@ -23,8 +26,11 @@
             <option value="Richmond Park">Richmond Park</option>
             <option value="Victoria Park">Victoria Park</option>
         </select>
+    </div>
         <button type='submit' name='add spotting incident'>Add spotting incident</button>
     </form>
+</section>
+</main>
 </body>
 
 </html>
