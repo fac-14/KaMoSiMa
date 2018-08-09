@@ -1,4 +1,13 @@
+env:
+  - DB=postgres 
+  - DB_URL=postgres://admin:doggo@localhost:5432/dogspotting
+
 language: node_js
 node_js :
  - "node"
 after_success: npm run coverage
+
+before_script:
+  - psql -c 'CREATE DATABASE dogspotting;' -U postgres
+  - psql -c "CREATE USER admin WITH PASSWORD ‘doggo';" -U postgres
+  - psql -c "ALTER DATABASE dogspotting OWNER TO admin;" -U postgres
