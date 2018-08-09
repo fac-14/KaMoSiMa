@@ -13,11 +13,38 @@ black fr headings = #1c1c1c;
 
 body {
     background: #fcf5c7;
-    margin: 24px;
     font-size: 1rem;
+    font-family: 'Nunito', sans-serif;
+}
+
+main {
+    height: 90vh;
+    width: 100%;
+    padding: 24px;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ELEMENT STYLES */
+
+h1 {
+    margin: 0 0 2rem 0;
+    padding: 0;
+    font-size: 5rem;
+    font-weight: 900;
+}
 
 input[type=text] {
     background: #f4fee2;
@@ -26,10 +53,29 @@ input[type=text] {
 }
 
 button {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    margin: 1rem;
+    min-height: 4rem;
+    min-width: 80%;
     background: #1ebc7a;
-    color: #302f2a;
+    color: #f4fee2;
+    text-shadow: 2px 2px 2px rgba(48, 47, 42, 0.8);
     border: 2px solid #302f2a;
     border-radius: 4px;
     box-shadow: 2px 2px 4px 2px rgba(48, 47, 42, 0.2);
-    font-size: 1rem;
+    font-size: 1.5rem;
+}
+
+button:hover {
+    background: #1c1c1c;
+}
+
+button:active {
+    background: #1c1c1c;
+    transform: translate(2px, 1px);
+}
+
+button:focus {
+    background: #1c1c1c;
 }
