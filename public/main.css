@@ -1,0 +1,35 @@
+/*
+white = #f4fee2;
+peach = #fcf5c7;
+accent green = #1ebc7a;
+light black for copy = #302f2a;
+black fr headings = #1c1c1c;
+
+*/
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #fcf5c7;
+    margin: 24px;
+    font-size: 1rem;
+}
+
+/* ELEMENT STYLES */
+
+input[type=text] {
+    background: #f4fee2;
+    border: 2px solid #302f2a;
+    font-size: 1rem;
+}
+
+button {
+    background: #1ebc7a;
+    color: #302f2a;
+    border: 2px solid #302f2a;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px 2px rgba(48, 47, 42, 0.2);
+    font-size: 1rem;
+}
