@@ -58,9 +58,9 @@ const router = (request, response) => {
             const dogName = querystring.parse(postData).dogName;
             const dogBreed = querystring.parse(postData).dogBreed;
             const parkName = querystring.parse(postData).parkName;
-            const parkNameFiltered = parkName.split('.')[1];
-            console.log(`Posting dog: Name = ${dogName}, ${dogBreed}, ${parkNameFiltered}`);
-            dbQuery.postDoggo(dogName, dogBreed, parkNameFiltered, (err, res) => {
+            // const parkNameFiltered = parkName.split('.')[1];
+            console.log(`Posting dog: Name = ${dogName}, ${dogBreed}, ${parkName}`);
+            dbQuery.postDoggo(dogName, dogBreed, parkName, (err, res) => {
                 if (err) {
                     response.writeHead(500, 'content-type : text/html');
                     response.end();
