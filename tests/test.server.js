@@ -1,6 +1,7 @@
 const test = require('tape');
 const router = require('../src/router');
 const supertest = require('supertest');
+const dbBuild = require('../db/db_build');
 
 test('check tape is working', (t) => {
   t.equal(1, 1, 'One equals one except when Big Brother is watching');
@@ -45,13 +46,16 @@ test('check if public assets are loading', (t) => {
 });
 
 test('check /spots endpoint', (t) => {
-  supertest(router)
-    .get('/spots')
-    .expect(200)
-    .expect('content-type', 'application/json')
-    .end((err, res) => {
-      t.error(err)
-      t.equal(res.status, 200, 'response status should be 200')
-      t.end();
-    });
+  dbBuild((err, res) => {
+    t.error(err)
+    supertest(router)
+      .get('/spots')
+      .expect(200)
+      .expect('content-type', 'application/json')
+      .end((err, res) => {
+        t.error(err)
+        t.equal(res.status, 200, 'response status should be 200')
+        t.end();
+      });
+  });
 });
