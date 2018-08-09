@@ -4,6 +4,7 @@ const pg = require('pg');
 const querystring = require('querystring');
 const mime = require('mime-types');
 const path = require('path');
+const dbQuery = require('./dbQueries');
 
 const buildPath = (mypath) => {
     return path.join(__dirname, '..', mypath);
@@ -37,7 +38,19 @@ const router = (request, response) => {
             response.end(file);
         });
 
-    } else {
+    } else if (endpoint === 'spots') {
+        dbQuery.getDoggo((err, res) => {
+            if (err) {
+                response.writeHead(500, { 'content-type': 'text/plain' });
+                response.end('server error');
+            }
+            response.writeHead(200, { 'content-type': mime.lookup('json') });
+            response.end(JSON.stringify(res));
+        });
+
+    }
+
+    else {
         response.writeHead(404, { 'content-type': 'text/html' });
         response.end('Page doesn´t exist');
     }

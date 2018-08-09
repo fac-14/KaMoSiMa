@@ -43,3 +43,15 @@ test('check if public assets are loading', (t) => {
       t.end();
     });
 });
+
+test('check /spots endpoint', (t) => {
+  supertest(router)
+    .get('/spots')
+    .expect(200)
+    .expect('content-type', 'application/json')
+    .end((err, res) => {
+      t.error(err)
+      t.equal(res.status, 200, 'response status should be 200')
+      t.end();
+    });
+});
