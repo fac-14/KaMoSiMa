@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DOGSPOTTING</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="../public/main.css" />
+</head>
+<body>
+    <h1>Dogspotting...</h1>
+    <form action='/create-spots' method='post'>
+        <input type='text' name='dog name'></input>
+        <input type='text' name='dog breed'></input>
+        <select name="parkname">
+            <option value="Brockwell Park">Brockwell Park</option>
+            <option value="Finsbury Park">Finsbury Park</option>
+            <option value="Greenwich Park">Greenwich Park</option>
+            <option value="Hampstead Heath">Hampstead Heath</option>
+            <option value="Richmond Park">Richmond Park</option>
+            <option value="Victoria Park">Victoria Park</option>
+        </select>
+        <button type='submit' name='add spotting incident'>Add spotting incident</button>
+    </form>
+</body>
+<script src="../public/logic.js"></script>
+</html>
