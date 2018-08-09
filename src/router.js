@@ -45,7 +45,7 @@ const router = (request, response) => {
                 response.end('server error');
             }
             response.writeHead(200, { 'content-type': mime.lookup('json') });
-            response.end(JSON.stringify(res));
+            response.end(JSON.stringify(res.rows));
         });
 
     }
