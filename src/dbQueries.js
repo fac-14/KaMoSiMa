@@ -11,8 +11,19 @@ const dbQuery = {
             cb(null, res);
         });
     },
-    postDoggo: function () {
-        console.log("I'm POSTING DOGGO data");
+    postDoggo: function (name, breed, park, cb) {
+        let query = `
+        BEGIN;
+        INSERT INTO dogs (dog_name, dog_breed) VALUES ('${name}', '${breed}');
+        INSERT INTO spots (dog_id, park_id) VALUES ((SELECT id FROM dogs ORDER BY id DESC LIMIT 1), (SELECT id FROM parks WHERE park_name = '${park}'));
+        END;
+        `;
+        databaseConnection.query(query, (err, res) => {
+            if (err) {
+                cb("Error!", null);
+            }
+            cb(null, res);
+        });
     },
     listDoggo: function () {
         console.log("Here's all the PARKS a DOGGO has BEEN IN!");
