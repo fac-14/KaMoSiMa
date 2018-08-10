@@ -14,9 +14,9 @@
     <main>
         <section class="flex-col">
             <h1>Dogspotting 🐕</h1>
-            <button onclick="request('/breeds', createBreedsTable)">Sort by breed</button>
-            <button onclick="request('/spots', createSpotsTable)">See all spots</button>
-            <button onclick="window.location.href='/'">Back home</button>
+            <button onclick="request('/breeds', createBreedsTable)" class="smallerbutton">Sort by breed</button>
+            <button onclick="request('/spots', createSpotsTable)" class="smallerbutton">See all spots</button>
+            <button onclick="window.location.href='/'" class="smallerbutton">Back home</button>
             <div class='table flex-row' id='table-div'></div>
         </section>
     </main>
