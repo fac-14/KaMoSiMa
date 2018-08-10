@@ -1,3 +1,6 @@
+services:
+  - postgresql
+  
 env:
   - DB=postgres
   - DATABASE_URL=postgres://admin:doggo@localhost:5432/dogspotting
