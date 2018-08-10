@@ -46,8 +46,8 @@ test('check if public assets are loading', (t) => {
 });
 
 test('check /spots endpoint', (t) => {
-  dbBuild((err, res) => {
-    t.error(err)
+  dbBuild((err, cb) => {
+    t.error(err, "Database rebuilt");
     supertest(router)
       .get('/spots')
       .expect(200)
@@ -61,24 +61,14 @@ test('check /spots endpoint', (t) => {
 });
 
 test('check /create-spots endpoint', (t) => {
-  dbBuild((err, res) => {
-    t.error(err)
+  dbBuild((err, cb) => {
+    t.error(err, "Database rebuilt");
     supertest(router)
       .post('/create-spots')
-      .send({
-        dogName : 'sweet',
-        dogBreed : 'poodle'
-    })
-      .expect(200)
-      .expect('content-type', 'application/json')
+      .send('dogName=Testhoven&dogBreed=St.+Bernard&parkName=Hampstead+Heath&add+spotting+incident=')
+      .expect(302)
       .end((err, res) => {
         t.error(err)
-        t.equal(res.status, 200, 'response status should be 200')
-        t.deepEquals(res.body, { dogName: 'sweet',
-        dogBreed: 'poodle',
-        parkname: '1.Brockwell Park',
-        'add spotting incident': '' 
-      }, 'should return object with dog name and breed')
         t.end();
       });
   });
