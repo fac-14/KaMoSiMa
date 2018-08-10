@@ -58,6 +58,7 @@ const router = (request, response) => {
             postData += chunk;
         });
         request.on('end', () => {
+            console.log(postData);
             const dogName = querystring.parse(postData).dogName;
             const dogBreed = querystring.parse(postData).dogBreed;
             const parkName = querystring.parse(postData).parkName;
@@ -66,10 +67,10 @@ const router = (request, response) => {
                     response.writeHead(500, 'content-type : text/html');
                     response.end();
                 }
-                response.writeHead(302, { "Location" : "/public/seedogs.html" });
+                response.writeHead(302, { "Location": "/public/seedogs.html" });
                 response.end();
-            }) 
-        }); 
+            })
+        });
     }
 
     else {
@@ -77,10 +78,5 @@ const router = (request, response) => {
         response.end('Page doesn´t exist');
     }
 }
-
-
-
-
-
 
 module.exports = router;

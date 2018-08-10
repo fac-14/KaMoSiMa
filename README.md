@@ -91,6 +91,9 @@ We started coding after having had a sweet cup of coffee and a good talk with th
 
 ### Monika
 
-
+* Happy that I got to work on all tasks, especially tests, database and queries
+* The final version of the project exceedes my initial expectations :) Bravo my team!
+* No stress & take it easy attitude of the whole team
+* Learnt a lot, esp. INNER JOIN, callbacks and DROP TABLES :D
 
 ### Simon
