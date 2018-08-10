@@ -31,8 +31,17 @@ const dbQuery = {
     parkDoggo: function () {
         console.log("Here's all the DOGS that have been in one PARK");
     },
-    breedDoggo: function () {
-        console.log("Here's all the BREEDS of doggo!");
+    breedDoggo: function (cb) {
+        let query = `SELECT dogs.dog_breed, count(dogs.dog_breed) FROM dogs 
+        WHERE dogs.dog_breed <> '' 
+        GROUP BY dogs.dog_breed ORDER BY count(dogs.dog_breed) DESC;
+        `;
+        databaseConnection.query(query, (err, res) => {
+            if (err) {
+                cb("Error!", null);
+            }
+            cb(null, res);
+        });
     }
 };
 

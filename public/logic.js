@@ -9,9 +9,27 @@ function request(url, cb) {
   xhr.send();
 }
 
-function createDomTable(data) {
+function createSpotsTable(data) {
+  var element = document.getElementById("table-div");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
   var spots = data;
-  var table = document.getElementById('spotsTable');
+  var table = document.createElement('table');
+  table.setAttribute('id', 'spotsTable');
+  var tableDiv = document.getElementById('table-div');
+  tableDiv.appendChild(table);
+  var headingRow = document.createElement('tr');
+  table.appendChild(headingRow);
+  var dogName = document.createElement('th');
+  dogName.textContent = "Dog name";
+  headingRow.appendChild(dogName);
+  var dogBreed = document.createElement('th');
+  dogBreed.textContent = "Dog breed";
+  headingRow.appendChild(dogBreed);
+  var parkName = document.createElement('th');
+  parkName.textContent = "Location";
+  headingRow.appendChild(parkName);
   spots.forEach(function (spot) {
     var row = document.createElement('tr');
     var name = document.createElement('td');
@@ -27,4 +45,33 @@ function createDomTable(data) {
   })
 }
 
-request('/spots', createDomTable);
+function createBreedsTable(data) {
+  var element = document.getElementById("table-div");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+  var table = document.createElement('table');
+  table.setAttribute('id', 'BreedsTable');
+  var tableDiv = document.getElementById('table-div');
+  tableDiv.appendChild(table);
+  var headingRow = document.createElement('tr');
+  table.appendChild(headingRow);
+  var breedName = document.createElement('th');
+  breedName.textContent = "Breed name";
+  headingRow.appendChild(breedName);
+  var breedCount = document.createElement('th');
+  breedCount.textContent = "Number of dogs";
+  headingRow.appendChild(breedCount);
+  data.forEach(function (data) {
+    var row = document.createElement('tr');
+    var breed = document.createElement('td');
+    breed.textContent = data.dog_breed;
+    row.appendChild(breed);
+    var count = document.createElement('td');
+    count.textContent = data.count;
+    row.appendChild(count);
+    table.appendChild(row);
+  })
+}
+
+window.onload = request('/spots', createSpotsTable);

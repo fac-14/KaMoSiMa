@@ -83,6 +83,10 @@ button:focus {
     background: #1c1c1c;
 }
 
+.smallerbutton {
+    min-width: 20%;
+}
+
 select {
     font-size: 1rem;
     padding: 0.5rem 1rem;
