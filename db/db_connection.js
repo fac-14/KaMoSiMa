@@ -8,6 +8,12 @@ if (!process.env.DATABASE_URL) {
   throw new Error('Environment variable DATABASE_URL must be set');
 }
 
+if (process.env.NODE_ENV === 'test') {
+  console.log('Running test environment');
+
+  process.env.DATABASE_URL = process.env.DATABASE_TEST_URL;
+}
+
 const params = url.parse(process.env.DATABASE_URL);
 
 const [username, password] = params.auth.split(':');
@@ -19,12 +25,12 @@ const options = {
   max: process.env.DB_MAX_CONNECTIONS || 2
 };
 
-if (username) { 
-  options.user = username; 
+if (username) {
+  options.user = username;
 };
 
-if (password) { 
-  options.password = password; 
+if (password) {
+  options.password = password;
 };
 
 options.ssl = (options.host !== 'localhost');
