@@ -10,7 +10,7 @@ after_success: npm run coverage
 
 before_script:
   - psql -c "CREATE DATABASE dogspotting;" -U postgres
-  - psql -c "CREATE DATABASE dogspotting_test;"
+  - psql -c "CREATE DATABASE dogspotting_test;" -U postgres
   - psql -c "CREATE USER admin WITH PASSWORD 'doggo';" -U postgres
   - psql -c "ALTER DATABASE dogspotting OWNER TO admin;" -U postgres
   - psql -c "ALTER DATABASE dogspotting_test OWNER to admin;" -U postgres
