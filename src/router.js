@@ -13,9 +13,6 @@ const buildPath = (mypath) => {
 const router = (request, response) => {
     const endpoint = request.url.split('/')[1];
     const extension = request.url.split('/')[2];
-    console.log('request.url', request.url);
-    console.log('endpoint', endpoint);
-    console.log('extension', extension);
 
     if (endpoint === '') {
         fs.readFile(__dirname + '/../public/index.html', (err, file) => {
@@ -29,7 +26,6 @@ const router = (request, response) => {
         });
     } else if (request.url.includes('public')) {
         fs.readFile(buildPath(request.url), (err, file) => {
-            console.log("buildPath ", buildPath(request.url));
             if (err) {
                 response.writeHead(500, { 'content-type': 'text/plain' });
                 response.end('server error');
@@ -47,10 +43,17 @@ const router = (request, response) => {
             response.writeHead(200, { 'content-type': mime.lookup('json') });
             response.end(JSON.stringify(res.rows));
         });
-
+    } else if (endpoint === 'breeds') {
+        dbQuery.breedDoggo((err, res) => {
+            if (err) {
+                response.writeHead(500, { 'content-type': 'text/plain' });
+                response.end('server error');
+            }
+            response.writeHead(200, { 'content-type': mime.lookup('json') });
+            response.end(JSON.stringify(res.rows));
+        });
     } else if (endpoint === 'create-spots') {
         let postData = '';
-        console.log("You're trying to post a dog");
         request.on('data', (chunk) => {
             postData += chunk;
         });
@@ -58,8 +61,6 @@ const router = (request, response) => {
             const dogName = querystring.parse(postData).dogName;
             const dogBreed = querystring.parse(postData).dogBreed;
             const parkName = querystring.parse(postData).parkName;
-            // const parkNameFiltered = parkName.split('.')[1];
-            console.log(`Posting dog: Name = ${dogName}, ${dogBreed}, ${parkName}`);
             dbQuery.postDoggo(dogName, dogBreed, parkName, (err, res) => {
                 if (err) {
                     response.writeHead(500, 'content-type : text/html');
