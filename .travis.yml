@@ -1,6 +1,6 @@
 env:
   - DB=postgres 
-  - DB_URL=postgres://admin:doggo@localhost:5432/dogspotting
+  - DATABASE_TEST_URL=postgres://admin:doggo@localhost:5432/dogspotting
 
 language: node_js
 node_js :
