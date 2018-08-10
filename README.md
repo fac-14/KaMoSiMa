@@ -1,3 +1,6 @@
+## Our app is on heroku!
+please check it out: http://kamosima.herokuapp.com/
+
 ![](https://image.ibb.co/i8CNqp/Trainspotting_f.jpg)
 
 [![Build Status](https://travis-ci.org/fac-14/KaMoSiMa.svg?branch=master)](https://travis-ci.org/fac-14/KaMoSiMa)
