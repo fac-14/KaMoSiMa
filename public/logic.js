@@ -10,12 +10,14 @@ function request(url, cb) {
 }
 
 function createSpotsTable(data) {
+  var element = document.getElementById("table-div");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
   var spots = data;
   var table = document.createElement('table');
   table.setAttribute('id', 'spotsTable');
   var tableDiv = document.getElementById('table-div');
-  console.log(tableDiv);
-  // var table = document.getElementById('spotsTable');
   tableDiv.appendChild(table);
   var headingRow = document.createElement('tr');
   table.appendChild(headingRow);
@@ -43,9 +45,33 @@ function createSpotsTable(data) {
   })
 }
 
-// function createBreadTable(data) {
-//   var breeds = data;
-//   var table = document.getElementById
-// }
+function createBreedsTable(data) {
+  var element = document.getElementById("table-div");
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+  var table = document.createElement('table');
+  table.setAttribute('id', 'BreedsTable');
+  var tableDiv = document.getElementById('table-div');
+  tableDiv.appendChild(table);
+  var headingRow = document.createElement('tr');
+  table.appendChild(headingRow);
+  var breedName = document.createElement('th');
+  breedName.textContent = "Breed name";
+  headingRow.appendChild(breedName);
+  var breedCount = document.createElement('th');
+  breedCount.textContent = "Number of dogs";
+  headingRow.appendChild(breedCount);
+  data.forEach(function (data) {
+    var row = document.createElement('tr');
+    var breed = document.createElement('td');
+    breed.textContent = data.dog_breed;
+    row.appendChild(breed);
+    var count = document.createElement('td');
+    count.textContent = data.count;
+    row.appendChild(count);
+    table.appendChild(row);
+  })
+}
 
 window.onload = request('/spots', createSpotsTable);
