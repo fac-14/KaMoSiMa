@@ -35,9 +35,20 @@ const router = (request, response) => {
         request.on('end', () => {
             console.log(postData);
             // get data and parse it
+            let parsed = querystring.parse(postData);
+            let username = parsed.username;
+            let password = parsed.password;
+            let email = parsed.email;
+            dbQuery.storeUser(username, false, password, email, (err, res) => {
+                if (err) {
+                    console.log("error mess", err);
+                } else {
+                    response.writeHead(302, { "Location": "/" });
+                    response.end();
+                }
+            })
             // get it in the db
-            response.writeHead(302, { "Location": "/" });
-            response.end();
+
         });
     } else if (endpoint === 'login') {
         response.writeHead(302, {
