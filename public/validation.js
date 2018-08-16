@@ -10,16 +10,31 @@ form.addEventListener('click', function (event) {
     while (error.hasChildNodes()) {
         error.removeChild(error.firstChild);
     }
-
-    if (password.value != confirmPassword.value) {
+    if (username.value.length === 0) {
         event.preventDefault();
         var newError = document.createElement("p");
         error.appendChild(newError);
-        newError.innerText = 'Passwords do not match'
+        newError.innerText = 'Please enter a username';
         return false;
     }
 
-    if (password.validity.patternMismatch || confirmPassword.validity.patternMismatch) {
+    if (username.validity.patternMismatch) {
+        event.preventDefault();
+        var newError = document.createElement("p");
+        error.appendChild(newError);
+        newError.innerText = 'Username has to be between 5-20 characters';
+        return false;
+    }
+
+    if (password.value.length === 0) {
+        event.preventDefault();
+        var newError = document.createElement("p");
+        error.appendChild(newError);
+        newError.innerText = 'Please enter a password';
+        return false;
+    }
+
+    if (password.validity.patternMismatch) {
         event.preventDefault();
         var newError = document.createElement("p");
         error.appendChild(newError);
@@ -27,11 +42,11 @@ form.addEventListener('click', function (event) {
         return false;
     }
 
-    if (password.value.length === 0 || confirmPassword.value.length === 0) {
+    if (password.value != confirmPassword.value) {
         event.preventDefault();
         var newError = document.createElement("p");
         error.appendChild(newError);
-        newError.innerText = 'Please enter a password';
+        newError.innerText = 'Passwords do not match'
         return false;
     }
 
@@ -50,20 +65,8 @@ form.addEventListener('click', function (event) {
         newError.innerText = 'Please type in an email address';
         return false;
     }
-    if (username.validity.patternMismatch) {
-        event.preventDefault();
-        var newError = document.createElement("p");
-        error.appendChild(newError);
-        newError.innerText = 'Username has to be between 5-20 characters';
-        return false;
-    }
-    if (username.value.length === 0) {
-        event.preventDefault();
-        var newError = document.createElement("p");
-        error.appendChild(newError);
-        newError.innerText = 'Please enter a username';
-        return false;
-    }
+
+
     return true;
 });
 
