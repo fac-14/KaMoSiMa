@@ -35,16 +35,46 @@ const router = (request, response) => {
         request.on('end', () => {
             console.log(postData);
             // get data and parse it
+            let parsed = querystring.parse(postData);
+            let username = parsed.username;
+            let password = parsed.password;
+            let email = parsed.email;
+            dbQuery.storeUser(username, false, password, email, (err, res) => {
+                if (err) {
+                    console.log("error mess", err);
+                } else {
+                    response.writeHead(302, { "Location": "/" });
+                    response.end();
+                }
+            })
             // get it in the db
-            response.writeHead(302, { "Location": "/" });
-            response.end();
+
         });
     } else if (endpoint === 'login') {
-        response.writeHead(302, {
-            'Location': '/',
-            'Set-Cookie': 'logged_in=true; HttpOnly; Max-Age=9000'
+        console.log("login registering...");
+
+        let postData = '';
+        request.on('data', (chunk) => {
+            postData += chunk;
         });
-        return response.end();
+        request.on('end', () => {
+            console.log(postData);
+            // get data and parse it
+            let parsed = querystring.parse(postData);
+            let username = parsed.username;
+            let password = parsed.password;
+            dbQuery.checkUser(username, password, (err, res) => {
+                if (err) {
+                    console.log("error login", err);
+                } else {
+                    response.writeHead(302, {
+                        'Location': '/',
+                        'Set-Cookie': 'logged_in=true; HttpOnly; Max-Age=9000'
+                    });
+                    return response.end();
+                }
+            });
+        })
     } else if (endpoint === 'logout') {
         response.writeHead(302, {
             'Location': '/',

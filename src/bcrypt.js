@@ -6,7 +6,7 @@ const hashPassword = (password, callback) => {
 };
 
 const comparePasswords = (password, hashedPassword, callback) => {
-  bcrypt.compare(password, hashedPassword, function(err, res) {
+  bcrypt.compare(password, hashedPassword, function (err, res) {
     if (err) {
       console.log('booooooooooo')
       callback(err)
