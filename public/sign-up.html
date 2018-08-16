@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DOGSPOTTING 🐕</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="../public/main.css" />
+</head>
+
+<body>
+    <div>
+        <h3>Sign up here</h3>
+        <form id="sign-up" novalidate>
+            <label for='username'>Username
+                <input type='text' name='username' id='username' pattern='.{5,20}'/>
+            </label>
+            <label for='password'>Password
+                <input type='password' name='password' class='password' pattern='(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}'/>
+            </label>
+            <label for='confirm-password'>Confirm password
+                <input type='password' name='confirm-password' class='confirm-password' pattern='(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}'/>
+            </label for='email'>
+            <label>E-mail
+                <input type='email' class = "email" name='email'/>
+            </label>
+            <div class='error' aria-live='polite'></div>
+            <button>Sign up</button>
+        </form>
+    </div>
+    <script type='text/javascript' src='validation.js'></script>
+</body>
+
+</html>

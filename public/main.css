@@ -253,3 +253,11 @@ tr {
     text-align: center;
   }
 }
+
+.error {
+  background-color: aqua;
+}
+
+.error.active {
+  background-color: aqua;
+}
