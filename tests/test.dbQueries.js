@@ -1,5 +1,6 @@
 const tape = require('tape');
 const dbQuery = require('../src/dbQueries.js');
+const { hashPassword, comparePasswords }= require('../src/bcrypt');
 
 const dbBuild = require('../db/db_build');
 
@@ -40,3 +41,26 @@ tape("getData", t => {
         })
     });
 });
+
+tape("getData", t => {
+    dbBuild((err, res) => {
+        t.error(err, 'No error');
+        dbQuery.storeUser('monika', true, 'wehey', 'monika@monika.com', (err, res) => {
+            if (err) {
+                console.log(err)
+            } else {
+                actual = res[1].rowCount;
+                expected = 1;
+                t.equal(actual, expected, "can put user info");    
+                dbQuery.checkUser('monika', 'wehey', (err, res) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        t.equal(res, true, 'username and password match database');
+                    }
+                })
+            }
+        })
+        t.end();
+    })
+})

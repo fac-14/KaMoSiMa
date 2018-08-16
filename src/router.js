@@ -25,6 +25,20 @@ const router = (request, response) => {
                 response.end(file);
             }
         });
+    } else if (endpoint === 'register') {
+        console.log("user registering...");
+
+        let postData = '';
+        request.on('data', (chunk) => {
+            postData += chunk;
+        });
+        request.on('end', () => {
+            console.log(postData);
+            // get data and parse it
+            // get it in the db
+            response.writeHead(302, { "Location": "/" });
+            response.end();
+        });
     } else if (endpoint === 'login') {
         response.writeHead(302, {
             'Location': '/',

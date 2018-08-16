@@ -13,21 +13,21 @@
 <body>
     <div>
         <h3>Sign up here</h3>
-        <form id="sign-up" novalidate>
+        <form id="sign-up" novalidate action="/register" method="post">
             <label for='username'>Username
-                <input type='text' name='username' id='username' pattern='.{5,20}'/>
+                <input type='text' name='username' id='username' pattern='.{5,20}' />
             </label>
             <label for='password'>Password
-                <input type='password' name='password' class='password' pattern='(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}'/>
+                <input type='password' name='password' class='password' pattern='(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}' />
             </label>
             <label for='confirm-password'>Confirm password
-                <input type='password' name='confirm-password' class='confirm-password' pattern='(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}'/>
+                <input type='password' name='confirm-password' class='confirm-password' pattern='(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}' />
             </label for='email'>
             <label>E-mail
-                <input type='email' class = "email" name='email'/>
+                <input type='email' class="email" name='email' />
             </label>
             <div class='error' aria-live='polite'></div>
-            <button>Sign up</button>
+            <button type="submit">Sign up</button>
         </form>
     </div>
     <script type='text/javascript' src='validation.js'></script>
