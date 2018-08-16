@@ -12,28 +12,33 @@
 
 <body>
     <nav>
-        <p>username goes here</p>
+        <div class="left">
+        </div>
+        <div class="right">
+            <a href="/logout">logout</a>
+            <a href="../auth/dashboard.html">home</a>
+        </div>
     </nav>
     <main>
         <section class="flex-col">
-    <h1>Dogspotting 🐕</h1>
-    <form action='/create-spots' method='post' class='flex-col'>
-        <div class="flex-col">
-        <input type='text' name='dogName' placeholder="Doggo name" required></input>
-        <input type='text' name='dogBreed' placeholder="Doggo breed" required></input>
-        <select name="parkName">
-            <option value="Brockwell Park">Brockwell Park</option>
-            <option value="Finsbury Park">Finsbury Park</option>
-            <option value="Greenwich Park">Greenwich Park</option>
-            <option value="Hampstead Heath">Hampstead Heath</option>
-            <option value="Richmond Park">Richmond Park</option>
-            <option value="Victoria Park">Victoria Park</option>
-        </select>
-    </div>
-        <button type='submit' name='add spotting incident'>Add spotting incident</button>
-    </form>
-</section>
-</main>
+            <h1>Dogspotting 🐕</h1>
+            <form action='/create-spots' method='post' class='flex-col'>
+                <div class="flex-col">
+                    <input type='text' name='dogName' placeholder="Doggo name" required></input>
+                    <input type='text' name='dogBreed' placeholder="Doggo breed" required></input>
+                    <select name="parkName">
+                        <option value="Brockwell Park">Brockwell Park</option>
+                        <option value="Finsbury Park">Finsbury Park</option>
+                        <option value="Greenwich Park">Greenwich Park</option>
+                        <option value="Hampstead Heath">Hampstead Heath</option>
+                        <option value="Richmond Park">Richmond Park</option>
+                        <option value="Victoria Park">Victoria Park</option>
+                    </select>
+                </div>
+                <button type='submit' name='add spotting incident'>Add spotting incident</button>
+            </form>
+        </section>
+    </main>
 </body>
 
 </html>
