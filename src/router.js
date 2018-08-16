@@ -13,6 +13,7 @@ const buildPath = (mypath) => {
 const router = (request, response) => {
     const endpoint = request.url.split('/')[1];
     const extension = request.url.split('/')[2];
+    const method = request.method;
 
     if (endpoint === '') {
         fs.readFile(__dirname + '/../public/index.html', (err, file) => {
@@ -24,11 +25,52 @@ const router = (request, response) => {
                 response.end(file);
             }
         });
+    } else if (endpoint === 'login') {
+        response.writeHead(302, {
+            'Location': '/',
+            'Set-Cookie': 'logged_in=true; HttpOnly; Max-Age=9000'
+        });
+        return response.end();
+    } else if (endpoint === 'logout') {
+        response.writeHead(302, {
+            'Location': '/',
+            'Set-Cookie': 'logged_in=false; HttpOnly; Max-Age=0'
+        });
+        response.end();
+    } else if (endpoint === 'seedogs') {
+        fs.readFile(path.join(__dirname, '..', '/public/seedogs.html'), (err, file) => {
+            if (err) {
+                response.writeHead(500, { 'content-type': 'text/plain' });
+                response.end('server error seedogs');
+            }
+            response.writeHead(200, { 'content-type': mime.lookup(request.url) });
+            response.end(file);
+        });
+    } else if (endpoint === 'sawdogs') {
+        const readCookie = request.headers.cookie;
+        if (readCookie && readCookie.match(/logged_in=true/)) {
+            fs.readFile(path.join(__dirname, '..', '/public/sawdogs.html'), (err, file) => {
+                if (err) {
+                    response.writeHead(500, { 'content-type': 'text/plain' });
+                    response.end('server error sawdogs auth');
+                }
+                response.writeHead(200, { 'content-type': mime.lookup(request.url) });
+                response.end(file);
+            });
+        } else {
+            //redirect to login
+            const message = 'Fail whale'
+            response.writeHead(401, {
+                'Content-Type': 'text/plain',
+                'Content-Length': message.length
+            });
+            return response.end(message);
+        }
     } else if (request.url.includes('public')) {
         fs.readFile(buildPath(request.url), (err, file) => {
             if (err) {
                 response.writeHead(500, { 'content-type': 'text/plain' });
-                response.end('server error');
+                response.end('server error public');
             }
             response.writeHead(200, { 'content-type': mime.lookup(request.url) });
             response.end(file);
@@ -38,7 +80,7 @@ const router = (request, response) => {
         dbQuery.getDoggo((err, res) => {
             if (err) {
                 response.writeHead(500, { 'content-type': 'text/plain' });
-                response.end('server error');
+                response.end('server error spots');
             }
             response.writeHead(200, { 'content-type': mime.lookup('json') });
             response.end(JSON.stringify(res.rows));
@@ -47,7 +89,7 @@ const router = (request, response) => {
         dbQuery.breedDoggo((err, res) => {
             if (err) {
                 response.writeHead(500, { 'content-type': 'text/plain' });
-                response.end('server error');
+                response.end('server error breeds');
             }
             response.writeHead(200, { 'content-type': mime.lookup('json') });
             response.end(JSON.stringify(res.rows));
@@ -71,9 +113,7 @@ const router = (request, response) => {
                 response.end();
             })
         });
-    }
-
-    else {
+    } else {
         response.writeHead(404, { 'content-type': 'text/html' });
         response.end('Page doesn´t exist');
     }
