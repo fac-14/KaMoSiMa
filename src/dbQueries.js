@@ -26,7 +26,7 @@ const dbQuery = {
             cb(null, res);
         });
     },
-    storePassword: function(username, admin, password, email) {
+    storePassword: function(username, admin, password, email, cb) {
         password = hashPassword(password);
         let query = `BEGIN;
         INSERT INTO users (username, is_admin, pass, email)

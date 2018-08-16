@@ -44,8 +44,15 @@ tape("getData", t => {
 tape("getData", t => {
     dbBuild((err, res) => {
         t.error(err, 'No error');
-        dbQuery.storePassword('monika', true, 'wehey', 'monika@monika.com')
-        console.log(res);
+        dbQuery.storePassword('monika', true, 'wehey', 'monika@monika.com', (err, res) => {
+            if (err) {
+                console.log(err)
+            } else {
+                actual = res.rowCount;
+                expected = 1;
+                t.equal(actual, expected, "Can post superhero to database");    
+            }
+        })
         t.end();
     })
 })
