@@ -52,11 +52,11 @@ tape("getData", t => {
                 actual = res[1].rowCount;
                 expected = 1;
                 t.equal(actual, expected, "can put user info");    
-                dbQuery.getUser('monika', (err, res) => {
+                dbQuery.checkUser('monika', 'wehey', (err, res) => {
                     if (err) {
                         console.log(err)
                     } else {
-                        t.equal(res.rows[0].username, 'monika', 'username matches')
+                        t.equal(res, true, 'username and password match database');
                     }
                 })
             }

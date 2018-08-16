@@ -27,6 +27,7 @@ const dbQuery = {
         });
     },
     storeUser: function(username, admin, password, email, cb) {
+        admin = false;
         hashPassword(password, (err, res) => {
             if (err) {
                 console.log('storeuser pass hash error')
@@ -44,13 +45,22 @@ const dbQuery = {
             }
         });
     },
-    getUser: function (name, cb) {
+    checkUser: function (name, password, cb) {
         let query = `SELECT * FROM users WHERE username='${name}'`;
         databaseConnection.query(query, (err, res) => {
             if (err) {
-                cb("Errorrrrrrrrrr!", null);
+                // cb("Errorrrrrrrrrr!", null);
+                console.log('errorrrrrr')
+            } else {
+                comparePasswords(password, res.rows[0].pass, (err, res) => {
+                    if (err) {
+                        cb("Terror!", null)
+                    } else {
+                        console.log(res)
+                        cb(null, res)
+                    }
+                })
             }
-            cb(null, res);
         });
     },
     listDoggo: function () {
