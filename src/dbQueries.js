@@ -26,17 +26,31 @@ const dbQuery = {
             cb(null, res);
         });
     },
-    storePassword: function(username, admin, password, email, cb) {
-        password = hashPassword(password);
-        let query = `BEGIN;
-        INSERT INTO users (username, is_admin, pass, email)
-        VALUES ('${username}', '${admin}', '${password}', '${email}');
-        END;`
+    storeUser: function(username, admin, password, email, cb) {
+        hashPassword(password, (err, res) => {
+            if (err) {
+                console.log('storeuser pass hash error')
+            } else {
+                let query = `BEGIN;
+                INSERT INTO users (username, is_admin, pass, email)
+                VALUES ('${username}', '${admin}', '${res}', '${email}');
+                END;`
+                databaseConnection.query(query, (err, res) => {
+                    if (err) {
+                        cb("Error!", null);
+                    }
+                        cb(null, res);
+                });
+            }
+        });
+    },
+    getUser: function (name, cb) {
+        let query = `SELECT * FROM users WHERE username='${name}'`;
         databaseConnection.query(query, (err, res) => {
             if (err) {
-                cb("Error!", null);
+                cb("Errorrrrrrrrrr!", null);
             }
-                cb(null, res);
+            cb(null, res);
         });
     },
     listDoggo: function () {
