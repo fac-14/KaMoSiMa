@@ -48,8 +48,15 @@ const router = (request, response) => {
                 response.writeHead(401, { "Content-Type": "text/plain" });
                 response.end("401 Forbidden");
             }
-            response.writeHead(200, { "Content-Type": "text/plain" });
-            response.end("Authenticated!");
+            fs.readFile(__dirname + '/../auth/dashboard.html', (err, file) => {
+                if (err) {
+                    response.writeHead(500, { 'content-type': 'text/plain' });
+                    response.end('file not found, sry');
+                } else {
+                    response.writeHead(200, { 'content-type': 'text/html' });
+                    response.end(file);
+                }
+            });
         });
     } else if (endpoint === 'register') {
         console.log("user registering...");
@@ -95,7 +102,7 @@ const router = (request, response) => {
                 } else {
                     jwt.sign({ logged_in: true }, process.env.JWT_SECRET, {}, (err, token) => {
                         response.writeHead(302, {
-                            'Location': '/',
+                            'Location': '/auth/dashboard.html',
                             'Set-Cookie': 'data=' + token + '; HttpOnly; Max-Age=9000'
                         });
                         return response.end();
@@ -106,7 +113,7 @@ const router = (request, response) => {
     } else if (endpoint === 'logout') {
         response.writeHead(302, {
             'Location': '/',
-            'Set-Cookie': 'logged_in=false; HttpOnly; Max-Age=0'
+            'Set-Cookie': 'data=false; HttpOnly; Max-Age=0'
         });
         response.end();
     } else if (endpoint === 'seedogs') {
@@ -119,25 +126,23 @@ const router = (request, response) => {
             response.end(file);
         });
     } else if (endpoint === 'sawdogs') {
-        const readCookie = request.headers.cookie;
-        if (readCookie && readCookie.match(/logged_in=true/)) {
-            fs.readFile(path.join(__dirname, '..', '/public/sawdogs.html'), (err, file) => {
-                if (err) {
-                    response.writeHead(500, { 'content-type': 'text/plain' });
-                    response.end('server error sawdogs auth');
-                }
-                response.writeHead(200, { 'content-type': mime.lookup(request.url) });
-                response.end(file);
-            });
-        } else {
-            //redirect to login
-            const message = 'Fail whale'
-            response.writeHead(401, {
-                'Content-Type': 'text/plain',
-                'Content-Length': message.length
-            });
-            return response.end(message);
-        }
+        isAuth(request.headers.cookie, (err, res) => {
+            if (err) {
+                response.writeHead(302, {
+                    'Location': '/public/login.html',
+                });
+                response.end();
+            } else {
+                fs.readFile(path.join(__dirname, '..', '/public/sawdogs.html'), (err, file) => {
+                    if (err) {
+                        response.writeHead(500, { 'content-type': 'text/plain' });
+                        response.end('server error sawdogs auth');
+                    }
+                    response.writeHead(200, { 'content-type': mime.lookup(request.url) });
+                    response.end(file);
+                });
+            }
+        })
     } else if (request.url.includes('public')) {
         fs.readFile(buildPath(request.url), (err, file) => {
             if (err) {
