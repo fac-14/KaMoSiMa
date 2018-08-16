@@ -1,13 +1,28 @@
-const http = require('http');
 const fs = require('fs');
-const pg = require('pg');
 const querystring = require('querystring');
 const mime = require('mime-types');
 const path = require('path');
 const dbQuery = require('./dbQueries');
+const cookie = require('cookie')
+const jwt = require('jsonwebtoken');
 
 const buildPath = (mypath) => {
     return path.join(__dirname, '..', mypath);
+}
+
+const isAuth = (userCookie, callback) => {
+    if (userCookie) {
+        console.log(`user provided cookie: ${userCookie}`);
+        let parsedCookie = cookie.parse(userCookie);
+        jwt.verify(parsedCookie['data'], process.env.JWT_SECRET, (err, decoded) => {
+            if (err || !decoded['logged_in']) {
+                callback("error");
+            }
+            callback(null, decoded['logged_in']);
+        });
+    } else {
+        callback("error");
+    }
 }
 
 const router = (request, response) => {
@@ -24,6 +39,17 @@ const router = (request, response) => {
                 response.writeHead(200, { 'content-type': 'text/html' });
                 response.end(file);
             }
+        });
+    } else if (endpoint === 'auth') {
+        const cookie = request.headers.cookie;
+        isAuth(cookie, (err, res) => {
+            if (err) {
+                console.log(err)
+                response.writeHead(401, { "Content-Type": "text/plain" });
+                response.end("401 Forbidden");
+            }
+            response.writeHead(200, { "Content-Type": "text/plain" });
+            response.end("Authenticated!");
         });
     } else if (endpoint === 'register') {
         console.log("user registering...");
@@ -67,11 +93,13 @@ const router = (request, response) => {
                 if (err) {
                     console.log("error login", err);
                 } else {
-                    response.writeHead(302, {
-                        'Location': '/',
-                        'Set-Cookie': 'logged_in=true; HttpOnly; Max-Age=9000'
+                    jwt.sign({ logged_in: true }, process.env.JWT_SECRET, {}, (err, token) => {
+                        response.writeHead(302, {
+                            'Location': '/',
+                            'Set-Cookie': 'data=' + token + '; HttpOnly; Max-Age=9000'
+                        });
+                        return response.end();
                     });
-                    return response.end();
                 }
             });
         })
