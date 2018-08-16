@@ -1,6 +1,4 @@
-const http = require('http');
 const fs = require('fs');
-const pg = require('pg');
 const querystring = require('querystring');
 const mime = require('mime-types');
 const path = require('path');
@@ -63,18 +61,48 @@ const router = (request, response) => {
         request.on('end', () => {
             console.log(postData);
             // get data and parse it
+            let parsed = querystring.parse(postData);
+            let username = parsed.username;
+            let password = parsed.password;
+            let email = parsed.email;
+            dbQuery.storeUser(username, false, password, email, (err, res) => {
+                if (err) {
+                    console.log("error mess", err);
+                } else {
+                    response.writeHead(302, { "Location": "/" });
+                    response.end();
+                }
+            })
             // get it in the db
-            response.writeHead(302, { "Location": "/" });
-            response.end();
+
         });
     } else if (endpoint === 'login') {
-        jwt.sign({ logged_in: true }, process.env.JWT_SECRET, {}, (err, token) => {
-            response.writeHead(302, {
-                'Location': '/',
-                'Set-Cookie': 'data=' + token + '; HttpOnly; Max-Age=9000'
-            });
-            return response.end();
+        console.log("login registering...");
+
+        let postData = '';
+        request.on('data', (chunk) => {
+            postData += chunk;
         });
+        request.on('end', () => {
+            console.log(postData);
+            // get data and parse it
+            let parsed = querystring.parse(postData);
+            let username = parsed.username;
+            let password = parsed.password;
+            dbQuery.checkUser(username, password, (err, res) => {
+                if (err) {
+                    console.log("error login", err);
+                } else {
+                    jwt.sign({ logged_in: true }, process.env.JWT_SECRET, {}, (err, token) => {
+                        response.writeHead(302, {
+                            'Location': '/',
+                            'Set-Cookie': 'data=' + token + '; HttpOnly; Max-Age=9000'
+                        });
+                        return response.end();
+                    });
+                }
+            });
+        })
     } else if (endpoint === 'logout') {
         response.writeHead(302, {
             'Location': '/',
