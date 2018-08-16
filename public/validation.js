@@ -5,58 +5,68 @@ var email = document.querySelector('.email');
 var form = document.querySelector('form');
 var error = document.querySelector('.error');
 
-form.addEventListener('input', function(event) {
+form.addEventListener('click', function (event) {
 
     while (error.hasChildNodes()) {
         error.removeChild(error.firstChild);
     }
-   
-    if(password.value != confirmPassword.value) {
+
+    if (password.value != confirmPassword.value) {
+        event.preventDefault();
         var newError = document.createElement("p");
         error.appendChild(newError);
         newError.innerText = 'Passwords do not match'
-        event.preventDefault();
+        return false;
     }
 
-    if(password.validity.patternMismatch || confirmPassword.validity.patternMismatch) {
+    if (password.validity.patternMismatch || confirmPassword.validity.patternMismatch) {
+        event.preventDefault();
         var newError = document.createElement("p");
         error.appendChild(newError);
         newError.innerText = 'Password must contain 8 characters including 1 letter and 1 number'
-        event.preventDefault();
+        return false;
     }
 
-    if(password.validity.valueMissing || confirmPassword.validity.valueMissing) {
+    if (password.value.length === 0 || confirmPassword.value.length === 0) {
+        event.preventDefault();
         var newError = document.createElement("p");
         error.appendChild(newError);
         newError.innerText = 'Please enter a password';
-        event.preventDefault();
+        return false;
     }
 
-    if(email.validity.typeMismatch) {
+    if (email.validity.typeMismatch) {
+        event.preventDefault();
         var newError = document.createElement("p");
         error.appendChild(newError);
         newError.innerText = 'Please type in a valid email address';
-        event.preventDefault();
+        return false;
     }
 
-    if(email.validity.valueMissing) {
+    if (email.value.length === 0) {
+        event.preventDefault();
         var newError = document.createElement("p");
         error.appendChild(newError);
         newError.innerText = 'Please type in an email address';
-        event.preventDefault();
+        return false;
     }
-    if(username.validity.patternMismatch) {
+    if (username.validity.patternMismatch) {
+        event.preventDefault();
         var newError = document.createElement("p");
         error.appendChild(newError);
         newError.innerText = 'Username has to be between 5-20 characters';
-        event.preventDefault();
+        return false;
     }
-    if(username.validity.valueMissing) {
+    if (username.value.length === 0) {
+        event.preventDefault();
         var newError = document.createElement("p");
         error.appendChild(newError);
         newError.innerText = 'Please enter a username';
-        event.preventDefault();
+        return false;
     }
+    return true;
 });
+
+
 
 
