@@ -1,4 +1,5 @@
 const databaseConnection = require('../db/db_connection.js');
+const { hashPassword, comparePasswords }= require('../src/bcrypt')
 
 const dbQuery = {
     getDoggo: function (cb) {
@@ -23,6 +24,19 @@ const dbQuery = {
                 cb("Error!", null);
             }
             cb(null, res);
+        });
+    },
+    storePassword: function(username, admin, password, email) {
+        password = hashPassword(password);
+        let query = `BEGIN;
+        INSERT INTO users (username, is_admin, pass, email)
+        VALUES ('${username}', '${admin}', '${password}', '${email}');
+        END;`
+        databaseConnection.query(query, (err, res) => {
+            if (err) {
+                cb("Error!", null);
+            }
+                cb(null, res);
         });
     },
     listDoggo: function () {

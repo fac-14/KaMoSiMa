@@ -40,3 +40,12 @@ tape("getData", t => {
         })
     });
 });
+
+tape("getData", t => {
+    dbBuild((err, res) => {
+        t.error(err, 'No error');
+        dbQuery.storePassword('monika', true, 'wehey', 'monika@monika.com')
+        console.log(res);
+        t.end();
+    })
+})
