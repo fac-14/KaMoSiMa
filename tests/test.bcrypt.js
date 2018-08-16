@@ -1,4 +1,4 @@
-const { hashPassword, comparePasswords }= require('../src/bcrypt')
+const { hashPassword, comparePasswords } = require('../src/bcrypt')
 const tape = require('tape');
 
 const password = 'wehey';

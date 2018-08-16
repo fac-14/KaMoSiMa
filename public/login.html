@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DOGSPOTTING 🐕</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,900" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" media="screen" href="../public/main.css" />
+</head>
+
+<body>
+    <div>
+        <h3>Login</h3>
+        <form id="login" novalidate action="/login" method="post">
+            <label for='username'>Username
+                <input type='text' name='username' id='username' required/>
+            </label>
+            <label for='password'>Password
+                <input type='password' name='password' class='password' required/>
+            </label>
+            <div class='error' aria-live='polite'></div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <script type='text/javascript' src="login.js"></script>
+</body>
+
+</html>

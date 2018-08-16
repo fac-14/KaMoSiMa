@@ -1,5 +1,5 @@
 const databaseConnection = require('../db/db_connection.js');
-const { hashPassword, comparePasswords }= require('../src/bcrypt')
+const { hashPassword, comparePasswords } = require('../src/bcrypt')
 
 const dbQuery = {
     getDoggo: function (cb) {
@@ -26,7 +26,7 @@ const dbQuery = {
             cb(null, res);
         });
     },
-    storeUser: function(username, admin, password, email, cb) {
+    storeUser: function (username, admin, password, email, cb) {
         admin = false;
         hashPassword(password, (err, res) => {
             if (err) {
@@ -40,7 +40,7 @@ const dbQuery = {
                     if (err) {
                         cb("Error!", null);
                     }
-                        cb(null, res);
+                    cb(null, res);
                 });
             }
         });
