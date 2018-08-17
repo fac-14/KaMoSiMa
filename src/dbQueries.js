@@ -51,10 +51,14 @@ const dbQuery = {
                 console.log('errorrrrrr')
             } else {
                 comparePasswords(password, res.rows[0].pass)
-                    .then(res => {
-                        cb(null, res);
+                .then(res => {
+                    if (!res) {
+                    cb("Error", null);
+                    } else {
+                    cb(null, res);
+                    }
                     })
-                    .catch(console.log);
+                    .catch(cb("Error", null));
             }
         });
     },
