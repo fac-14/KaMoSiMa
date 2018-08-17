@@ -95,6 +95,14 @@ main {
     padding: 0 16px;
 }
 
+.error {
+  background-color: aqua;
+}
+
+.error.active {
+  background-color: aqua;
+}
+
 /* ELEMENT STYLES */
 
 h1,
@@ -133,6 +141,22 @@ p {
 }
 
 input[type="text"] {
+  background: #f4fee2;
+  border: 2px solid #302f2a;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0.5rem;
+}
+
+input[type="password"] {
+  background: #f4fee2;
+  border: 2px solid #302f2a;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0.5rem;
+}
+
+input[type="email"] {
   background: #f4fee2;
   border: 2px solid #302f2a;
   font-size: 1rem;
@@ -207,37 +231,49 @@ tr {
   text-align: center;
 }
 
-/* MODAL */
+/* LOGIN AND SIGNUP FORM */
 
-#modal-bg {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-  
-  #modal-content {
-    background-color: rgba(62, 255, 191, 1);
-    border-radius: 4px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid black;
-    width: 50%;
-    height: 80%;
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-columns: 15% 70% 15%;
-  }
+.form-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+}
+
+#register-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+}
+
+#sign-up {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60%;
+}
+
+.sign-up-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
 
 /* BREAKPOINTS */
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 768px) {
   h1 {
     font-size: 2rem;
   }
@@ -247,17 +283,18 @@ tr {
     margin: 0.5rem;
   }
   .flex-row {
+    display: flex;
     flex-direction: column;
   }
   footer {
     text-align: center;
   }
+  .sign-up-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  } 
 }
 
-.error {
-  background-color: aqua;
-}
-
-.error.active {
-  background-color: aqua;
-}
