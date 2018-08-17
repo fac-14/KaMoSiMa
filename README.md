@@ -11,10 +11,11 @@ please check it out: http://kamosima.herokuapp.com/
 
 1. `$ git clone https://github.com/fac-14/KaMoSiMa.git`
 2. `$ npm i`
-3. Create a config.env file in your project root containing a DATABASE_URL variable with a postgres:// URL to a local database
-4. Build the database: `$ psql -f "db/db_build.sql" YOUR_DATABASE`
-5. Run that thing:`$ npm start`
-6. 🐶
+3. Create a `config.env` file in your project root containing a DATABASE_URL variable with a postgres:// URL to a local database
+4. You'll also need to set a `JWT_SECRET` environment variable containing a sturdy, robust secret used for hashing the JWT cookies. Use your imagination - it only relates to your particular server :kiss: 
+5. Build the database: `$ psql -f "db/db_build.sql" YOUR_DATABASE`
+6. Run that thing:`$ npm start`
+7. 🐶
 
 ## The brief :eyeglasses: 
 
@@ -28,7 +29,7 @@ please check it out: http://kamosima.herokuapp.com/
 ✅ Mobile-first design :iphone: 
 ✅ Clear user journey (even if you take one of our suggested ideas, document the user journey in your readme) :runner: 
 
-## The schema
+## The schema (NOT UPDATED FOR WEEK 2)
 
 ![](https://image.ibb.co/nLzbY9/Download.jpg)
 
@@ -40,6 +41,11 @@ We aptly named our database DOGSPOTTING, and it has three tables:
     * Relates only to parks: their name, their lat/lon (a stretch goal for displaying on a map), and a serial id assigned as a PK
 * ***spots :eyes:***
     * A table created by joining dog names and breeds from _**dogs**_ and park names from ***parks***
+
+& upon returning to the project to add authentication, we added a **fourth** table (whaaaat): 
+
+* ***users :family:***
+    * Stores username, is_admin, password and e-mail entries for each user. We also linked this into ***spots*** so we could eventually display which user spotted which dog. 
 
 ## User stories & stretch goals
 
