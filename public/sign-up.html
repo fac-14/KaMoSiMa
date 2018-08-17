@@ -11,21 +11,29 @@
 </head>
 
 <body>
-    <div>
-        <h3>Sign up here</h3>
+    <div class="form-main">
+        <h2>Sign up here</h2>
         <form id="sign-up" novalidate action="/register" method="post">
-            <label for='username'>Username
+            <div class="sign-up-row">
+                <label for='username'>Username
+                </label>
                 <input type='text' name='username' id='username' pattern='.{5,20}' />
-            </label>
-            <label for='password'>Password
+            </div>
+            <div class="sign-up-row">
+                <label for='password'>Password
+                </label>
                 <input type='password' name='password' class='password' pattern='(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}' />
-            </label>
-            <label for='confirm-password'>Confirm password
+            </div>
+            <div class="sign-up-row">
+                <label for='confirm-password'>Confirm password
+                </label>
                 <input type='password' name='confirm-password' class='confirm-password' pattern='(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}' />
-            </label for='email'>
-            <label>E-mail
-                <input type='email' class="email" name='email' />
-            </label>
+            </div>
+            <div class="sign-up-row">
+                <label for='email'>E-mail
+                    </label> 
+                    <input type='email' class="email" name='email' />
+            </div>
             <div class='error' aria-live='polite'></div>
             <button type="submit">Sign up</button>
         </form>

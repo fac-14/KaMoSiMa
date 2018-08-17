@@ -11,19 +11,23 @@
 </head>
 
 <body>
-    <div>
-        <h3>Login</h3>
+    <div class="form-main">
+        <h2>Login</h2>
         <form id="login" novalidate action="/login" method="post">
-            <label for='username'>Username
-                <input type='text' name='username' id='username' required/>
-            </label>
-            <label for='password'>Password
-                <input type='password' name='password' class='password' required/>
-            </label>
+            <div class="sign-up-row">
+                    <label for='username'>Username</label>
+                    <input type='text' name='username' id='username' required/>
+                        
+            </div>
+            <div class="sign-up-row">
+                    <label for='password'>Password</label>
+                    <input type='password' name='password' class='password' required/>
+                        
+            </div>
             <div class='error' aria-live='polite'></div>
             <button type="submit">Login</button>
         </form>
-        <form action="/public/sign-up.html" method="post">
+        <form action="/public/sign-up.html" method="post" id="register-button">
             <button type="submit">Register</button>
         </form>
     </div>
